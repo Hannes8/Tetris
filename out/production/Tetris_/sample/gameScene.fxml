@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.gameSceneController"
+            prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;">
+    <left>
+        <Label text="Points"></Label>
+        <Label text="Points"></Label>
+    </left>
+
+    <center>
+
+        <GridPane id="tetrisGrid" fx:id="tetrisGrid" prefWidth="400" prefHeight="400" alignment="CENTER">
+
+        </GridPane>
+
+    </center>
+
+    <right>
+        <Label text="Points"></Label>
+        <Label text="Points"></Label>
+
+
+    </right>
+
+</BorderPane>
