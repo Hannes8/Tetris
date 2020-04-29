@@ -10,10 +10,20 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.gameSceneController"
-            prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;">
+            prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;"
+            fx:id="borderPane"
+            onKeyPressed="#handleKeyPressed"
+
+
+
+>
     <left>
-        <Label text="Points"></Label>
-        <Label text="Points"></Label>
+        <VBox prefWidth="200">
+            <Label  text="Poi"></Label>
+
+            <Button visible="false" onAction="#hehe"></Button>
+        </VBox>
+
     </left>
 
     <center>
@@ -25,10 +35,10 @@
     </center>
 
     <right>
-        <Label text="Points"></Label>
-        <Label text="Points"></Label>
-
-
+        <VBox spacing="50" prefWidth="200" prefHeight="800">
+            <Label  alignment="BOTTOM_RIGHT" text="Score"></Label>
+            <Label  fx:id="score" text=""></Label>
+        </VBox>
     </right>
 
 </BorderPane>
