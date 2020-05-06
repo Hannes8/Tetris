@@ -7,37 +7,54 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.shape.Rectangle?>
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane
+        onKeyPressed="#handleKeyPressed"
+        onKeyReleased="#handleKeyReleased"
+        xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="sample.gameSceneController"
             prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;"
             fx:id="borderPane"
-            onKeyPressed="#handleKeyPressed"
-
-
-
 >
+    <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
     <left>
-        <VBox prefWidth="200">
+        <VBox spacing="50" prefWidth="200" prefHeight="800">
             <Label  text="Poi"></Label>
+            <HBox >
+                <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
+                <Rectangle fill="darkblue"  onMouseClicked="#onMousePressed" height="100" width="40" ></Rectangle>
+                <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
+            </HBox>
 
-            <Button visible="false" onAction="#hehe"></Button>
+
+
+
+
         </VBox>
 
     </left>
 
     <center>
+        <StackPane>
 
-        <GridPane id="tetrisGrid" fx:id="tetrisGrid" prefWidth="400" prefHeight="400" alignment="CENTER">
+            <GridPane id="tetrisGrid" fx:id="tetrisGrid" prefWidth="400" prefHeight="400" alignment="CENTER">
 
-        </GridPane>
+
+            </GridPane>
+            <Label textFill="red" fx:id="pausedText" style="-fx-font-size:50"  visible="false">PAUSED</Label>
+            <Button onAction="#pauseButtonAction" visible="false" fx:id="pauseButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Exit game</Button>
+        </StackPane>
+
 
     </center>
 
     <right>
         <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <Label  alignment="BOTTOM_RIGHT" text="Score"></Label>
-            <Label  fx:id="score" text=""></Label>
+            <GridPane>
+
+            </GridPane>
+            <Label style="-fx-font-size:50"  text="Score"></Label>
+            <Label  style="-fx-font-size:50" fx:id="score" text=""></Label>
         </VBox>
     </right>
 

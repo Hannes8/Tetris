@@ -1,7 +1,8 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
@@ -18,17 +19,21 @@ public class TetrisController {
 
     @FXML
     Button startGameButton;
+    @FXML
+    public void initialize(){
 
+    }
     public void startGameButton(ActionEvent actionEvent) throws IOException {
+
 
         System.out.println("TESTTEST");
         stage = (Stage) startGameButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
         Scene scene = new Scene(root);
 
+
         stage.setScene(scene);
 
-        gameSceneController controller = new gameSceneController();
 
     }
 
@@ -39,8 +44,23 @@ public class TetrisController {
         System.out.println("EXIT");
         stage.close();
     }
-    public void test(){
-        gameSceneController temp = new gameSceneController();
 
+
+
+    public void hehe(ActionEvent actionEvent) {
+    }
+
+    public void settingsButton(ActionEvent actionEvent) throws IOException {
+
+        stage = (Stage) startGameButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("TetrisSettings.fxml"));
+        Scene scene = new Scene(root);
+
+
+        stage.setScene(scene);
+
+    }
+
+    public void highScoreButton(ActionEvent actionEvent) {
     }
 }

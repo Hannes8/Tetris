@@ -8,18 +8,13 @@ public class TPiece implements PiecesInterface{
 
 
 
-    public Rectangle createPiece() {
-        Rectangle TPiece = new Rectangle(40,40);
-        TPiece.setFill(Color.PURPLE);
-        TPiece.setStroke(Color.GREY);
-
-
-        return TPiece;
+    public Color getPieceColor() {
+        return Color.PURPLE;
     }
 
     public int[] getPieceSize() {
 
-        // kordinaterna för klossen x,y för 4 punkter
+        // start kordinaterna för klossen x,y för 4 punkter
         int [] pieceSize = {5,0,4,1,5,1,6,1};
         return pieceSize;
     }

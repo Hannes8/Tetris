@@ -5,15 +5,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <VBox fx:controller="sample.TetrisController"
-      xmlns:fx="http://javafx.com/fxml" prefHeight="800" prefWidth="800" style="-fx-background-color: darkblue;" alignment="CENTER" spacing="40">
+      xmlns:fx="http://javafx.com/fxml" prefHeight="800" prefWidth="800" style="-fx-background-color: darkblue;" alignment="CENTER" spacing="40"  >
 
-                <Label text="TETRIS" style="-fx-font-size:80" ></Label>
+    <Label text="TETRIS" style="-fx-font-size:80" ></Label>
 
-                <Button fx:id="startGameButton" onAction="#startGameButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Start Game</Button>
+    <Button fx:id="startGameButton" onAction="#startGameButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Start Game</Button>
 
-                <Button fx:id="test1" onAction="#startGameButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Settings</Button>
+    <Button fx:id="test1" onAction="#settingsButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Settings</Button>
 
-                <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
+    <Button fx:id="highScoreButton" onAction="#highScoreButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">High Score</Button>
+
+    <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
+
+
+
+
 
 </VBox>

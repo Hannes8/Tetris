@@ -36,10 +36,18 @@ public class TetrisModel {
                 occupiedCordinates.get(cordinatesArrayList.get(i+1)).add(cordinatesArrayList.get(i));
                 i++;
             }
-            System.out.println(occupiedCordinates.get(19));
+
 
 
     }
+    public void removeOccupiedCordinatesRow(int row){
+
+            occupiedCordinates.get(row).clear();
+    }
+    public void removeOccupiedCordinates(){
+
+    }
+
     public ArrayList <ArrayList<Integer>> getOccupiedCordinates(){
             return occupiedCordinates;
 
