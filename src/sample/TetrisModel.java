@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.shape.Rectangle;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class TetrisModel {
@@ -60,5 +61,21 @@ public class TetrisModel {
         return score;
     }
 
+    // kod tagen från https://www.baeldung.com/java-write-to-file
+    public void saveHighscore()
+            throws IOException {
+        String str = "1337";
+        BufferedWriter writer = new BufferedWriter(new FileWriter("highscore.txt"));
+        writer.write(str);
+        writer.newLine();
+        writer.write(str);
+        writer.close();
+    }
+    public String getHighscore(){
 
+
+
+            return null;
+    }
 }
+

@@ -75,6 +75,7 @@ public class gameSceneController{
         //clip.open(audioIn);
       //  clip.start();
 
+        tetrisModel.saveHighscore();
 
         setGridArray();
         gridCreator();
@@ -256,9 +257,6 @@ private void setGridArray(){
 
         testt++;
       }
-
-
-
     }
 
     private void addPiece(int x,int y){
@@ -276,7 +274,34 @@ private void setGridArray(){
 
 
     private void moveActivePieceRight()  {
-        //if () {
+        // kolla om eccupied piece är brevid
+        Boolean possibleMove = true;
+
+
+
+        for (int i = 0; i <activeCordinates.size() ; i++) {
+
+            // om kordinaten höger om den aktiva kordinaten är upptagen
+            if (tetrisModel.getOccupiedCordinates().get(activeCordinates.get(i+1)).contains(activeCordinates.get(i)+1)){
+                possibleMove = false;
+                System.out.println("NOT POSSIBLE MOVE");
+
+            }
+            i++;
+
+        }
+
+
+    for (int i = 0; i <activeCordinates.size() ; i++) {
+
+
+            if (activeCordinates.get(i)==9){
+            possibleMove=false;
+            }
+                i++;
+
+        }
+        if (possibleMove == true) {
 
             removePieces(activeCordinates);
 
@@ -291,18 +316,45 @@ private void setGridArray(){
         }
 
 
-    //}
+    }
     private void moveActivePieceLeft()  {
-        removePieces(activeCordinates);
+        Boolean possibleMove = true;
 
         for (int i = 0; i <activeCordinates.size() ; i++) {
-            activeCordinates.set(i,activeCordinates.get(i)-1);
+
+            // om kordinaten höger om den aktiva kordinaten är upptagen
+            if (tetrisModel.getOccupiedCordinates().get(activeCordinates.get(i+1)).contains(activeCordinates.get(i)-1)){
+                possibleMove = false;
+                System.out.println("NOT POSSIBLE MOVE");
+
+            }
             i++;
+
+        }
+
+        for (int i = 0; i <activeCordinates.size() ; i++) {
+
+
+            if (activeCordinates.get(i)==0){
+                possibleMove=false;
+            }
+            i++;
+
+        }
+        if (possibleMove==true){
+            removePieces(activeCordinates);
+
+            for (int i = 0; i <activeCordinates.size() ; i++) {
+                activeCordinates.set(i,activeCordinates.get(i)-1);
+                i++;
+            }
+
+
+            placePiece(activeCordinates);
+            System.out.println("MOVE RIGHT");
         }
 
 
-        placePiece(activeCordinates);
-        System.out.println("MOVE RIGHT");
 
     }
 
