@@ -3,9 +3,12 @@ package sample;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class pieceFactory {
+import java.util.ArrayList;
 
-    TPiece tPiece = new TPiece();
+public class pieceFactory {
+    private ArrayList <String> randomPieceArray = new ArrayList<>();
+
+    private TPiece tPiece = new TPiece();
     OPiece opiece = new OPiece();
     public Color getPieceColor(String piece){
         switch (piece){
@@ -34,12 +37,26 @@ public class pieceFactory {
 
         return tPiece.getPieceSize();
     }
-    public String getRandomPiece(){
-        String [] pieceNameArray={"tpiece","opiece"};
-        int random =(int)(pieceNameArray.length * Math.random());
-        System.out.println(random+"RANDOM");
-        return pieceNameArray[random];
+    public ArrayList<String> getRandomPiece(){
 
+
+
+        return randomPieceArray;
+
+
+    }
+    public void randomizeNewPiece()
+    {String [] pieceNameArray={"tpiece","opiece"};
+        int random =(int)(pieceNameArray.length * Math.random());
+        randomPieceArray.remove(0);
+        randomPieceArray.add(pieceNameArray[random]);
+    }
+    public void setRandomPieceArray(){
+        for (int i = 0; i < 4; i++) {
+            String [] pieceNameArray={"tpiece","opiece"};
+            int random =(int)(pieceNameArray.length * Math.random());
+            randomPieceArray.add(pieceNameArray[random]);
+        }
 
     }
 }

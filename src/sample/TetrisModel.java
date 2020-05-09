@@ -41,11 +41,22 @@ public class TetrisModel {
 
 
     }
+    public void addSingleCordinateOccupiedCordinates(int x, int y){
+            occupiedCordinates.get(y).add(x);
+
+    }
+
     public void removeOccupiedCordinatesRow(int row){
 
             occupiedCordinates.get(row).clear();
     }
-    public void removeOccupiedCordinates(){
+    public void removeOccupiedCordinates(int x, int y){
+
+            occupiedCordinates.get(y).remove(Integer.valueOf(x));
+
+    }
+    public void setOccupiedCordinates(ArrayList <ArrayList<Integer>> occupiedCordinates){
+        this.occupiedCordinates = occupiedCordinates;
 
     }
 

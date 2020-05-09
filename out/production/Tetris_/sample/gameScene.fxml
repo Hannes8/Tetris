@@ -50,7 +50,9 @@
 
     <right>
         <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <GridPane>
+            <Label style="-fx-font-size:50"  text="Next"></Label>
+            <GridPane alignment="CENTER" fx:id="nextPieceGrid">
+
 
             </GridPane>
             <Label style="-fx-font-size:50"  text="Score"></Label>

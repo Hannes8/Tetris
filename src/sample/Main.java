@@ -20,6 +20,7 @@ public class Main extends Application {
         primaryStage.setTitle("Tetris");
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.getIcons().add(new Image("icon.png"));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
