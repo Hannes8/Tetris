@@ -34,6 +34,11 @@ public class gameSceneController{
     public Button pauseButton;
     @FXML
     public GridPane nextPieceGrid;
+    public Button resumeButton;
+    public Label scoreLabel;
+    public Label nextLabel;
+    public Label gameInformation;
+    public Label levelLabel;
 
 
     private ArrayList <Integer> activeCordinates = new ArrayList<>(50);
@@ -56,7 +61,7 @@ public class gameSceneController{
 
     String activePieceString;
 
-    private int gameSpeedMilliseconds = 250;
+    private int gameSpeedMilliseconds;
 
     private pieceFactory pieces = new pieceFactory();
 
@@ -70,9 +75,7 @@ public class gameSceneController{
 
     private  ArrayList <ArrayList<Rectangle>> gridArrayNext=new ArrayList<>(999);
 
-    private ArrayList <String> randomPieceArray = new ArrayList<>();
-
-
+    private int clearLineCount = 0;
     @FXML
     public void initialize() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         //AudioInputStream audioIn = AudioSystem.getAudioInputStream(gameSceneController.class.getResource("tetrismusic.wav"));
@@ -82,16 +85,46 @@ public class gameSceneController{
         pieces.setRandomPieceArray();
 
 
+        /**
+         *
+         *
+         * TODO
+         * check if rotation is possible
+         *
+         *
+         */
+
+
+
+
+
         tetrisModel.saveHighscore();
 
         setGridArray();
         gridCreator();
 
+        gameSpeedMilliseconds = tetrisModel.getDifficultyInt();
+        System.out.println(tetrisModel.getDifficultyInt() + " DIFFICULTY");
+
+        System.out.println(tetrisModel.getLanguageString()+ " LANGUAGE");
+
+        if (tetrisModel.getLanguageString().equals("swedish")){
+
+            scoreLabel.setText("Poäng");
+            nextLabel.setText("Nästa");
+            pausedText.setText("Pausad");
+            resumeButton.setText("Återuppta");
+            pauseButton.setText("Lämna spel");
+        }
+
+        // gameInformation.setText("Language "+tetrisModel.getLanguageString()+": Difficulty "+tetrisModel.getDifficultyString());
+
+
 
 
             tetrisModel.initiateOccupiedCordinates();
 
-            tetrisModel.setScore(555);
+            tetrisModel.setScore(0);
 
         System.out.println(tetrisModel.getScore());
         score.setText(Integer.toString(tetrisModel.getScore()));
@@ -111,8 +144,10 @@ public class gameSceneController{
 
             Timer fall = new Timer();
             TimerTask task = new TimerTask() {
+
                 int count = 0;
                 String piece;
+                int level = 1;
                 public void run() {
 
                     if (gamePaused == false) {
@@ -121,8 +156,16 @@ public class gameSceneController{
                         Platform.runLater(new Runnable() {
 
                             public void run() {
+                                if (checkIfCordinateIsOccupied() || x == 19) {
+                                    x = 0;
 
+                                    tetrisModel.addOccupiedCordinates(activeCordinates);
+                                    pieces.randomizeNewPiece();
+                                    activePieceString = pieces.getRandomPiece().get(0);
+                                }
                                 if (x == 0) {
+
+
                                     initialValueActiveCordinates(pieces.getPieceColor(activePieceString), pieces.getPieceSize(activePieceString), x);
                                 }
 
@@ -130,30 +173,32 @@ public class gameSceneController{
 
 
                                     if (x > 0) {
-                                    removePieces(activeCordinates);
-                                    placePieceOneDown(activeCordinates);
+
+                                    removePieces2(activeCordinates);
+                                        placePieceOneDown(activeCordinates);
                                 }
-
-
+                                checkIfLineIsFull();
                                 x++;
 
 
                                 // om kordinaten är tagen eller det är den sista raden
-                                if (checkIfCordinateIsOccupied() || x == 20) {
 
-                                            System.out.println(activeCordinates+" ACTIVE CORDINATES");
-                                            System.out.println(x+" X VÄRDE");
-                                    x = 0;
 
-                                    tetrisModel.addOccupiedCordinates(activeCordinates);
-                                    pieces.randomizeNewPiece();
-                                    activePieceString = pieces.getRandomPiece().get(0);
+
+
+                                // var tionde rad som blir borttagen så ökar leveln, svårhetsgraden
+                                if (clearLineCount%10==0 && clearLineCount!=0){
+                                    level++;
+                                    levelLabel.setText("Level " + level);
+
+                                    if (gameSpeedMilliseconds>100)
+                                    gameSpeedMilliseconds =gameSpeedMilliseconds- 100;
+
+                                    changeSpeed = true;
+
                                 }
 
-                                checkIfLineIsFull();
 
-
-                                score.setText(Integer.toString(tetrisModel.getScore() + x));
 
                                 if (tetrisModel.getOccupiedCordinates().get(0).contains(5)) {
 
@@ -218,11 +263,14 @@ public class gameSceneController{
     }
 
     private void checkIfLineIsFull() {
+
         for (int i = 0; i <21 ; i++) {
 
                 if (tetrisModel.getOccupiedCordinates().get(i).size()==10){
 
                     removeLine(i);
+                    clearLineCount ++;
+                    score.setText(Integer.toString(tetrisModel.getScore() + 40));
                 }
         }
 
@@ -230,10 +278,11 @@ public class gameSceneController{
     }
 
     private void removeLine(int row) {
-        System.out.println("REMOVING LINE");
 
+        System.out.println("REMOVING LINE" + row);
         for (int i = 0; i < 10; i++) {
-            removePiece(i,row-1);
+
+            removePiece(i,row);
 
         }
 
@@ -255,20 +304,26 @@ public class gameSceneController{
      */
     private void moveAllPiecesDown(int row) {
 
+
+
         // loopar igenom griden från den raden tas bort och uppåt
-        for (int i = row-1; i !=0 ; i--) {
-            for (int j = 0; j <10 ; j++) {
 
-                if (tetrisModel.getOccupiedCordinates().get(i).contains(j)){
 
-                    gridArray.get(i).get(j).setFill(gridArray.get(i-1).get(j).getFill());
-                    removePiece(j,i-1);
+           for (int i = row-1; i !=0 ; i--) {
+                      for (int j = 0; j <10 ; j++) {
 
-                    tetrisModel.removeOccupiedCordinates(j,i);
-                    tetrisModel.addSingleCordinateOccupiedCordinates(j,i+1);
-                    }
-                }
-            }
+                          if (tetrisModel.getOccupiedCordinates().get(i).contains(j)){
+
+                             gridArray.get(i+1).get(j).setFill(gridArray.get(i).get(j).getFill());
+                              removePiece(j,i);
+
+                                tetrisModel.removeOccupiedCordinates(j,i);
+                             tetrisModel.addSingleCordinateOccupiedCordinates(j,i+1);
+                              }
+                          }
+                      }
+
+
          }
 
     /**
@@ -400,7 +455,7 @@ private void setGridArray(){
         }
         if (possibleMove == true) {
 
-            removePieces(activeCordinates);
+            removePieces2(activeCordinates);
 
             for (int i = 0; i <activeCordinates.size() ; i++) {
                 activeCordinates.set(i,activeCordinates.get(i)+1);
@@ -439,7 +494,7 @@ private void setGridArray(){
 
         }
         if (possibleMove==true){
-            removePieces(activeCordinates);
+            removePieces2(activeCordinates);
 
             for (int i = 0; i <activeCordinates.size() ; i++) {
                 activeCordinates.set(i,activeCordinates.get(i)-1);
@@ -448,7 +503,7 @@ private void setGridArray(){
 
 
             placePiece(activeCordinates);
-            System.out.println("MOVE RIGHT");
+
         }
 
 
@@ -474,7 +529,10 @@ private void setGridArray(){
         for (int i = 0; i < cordinates.size(); i++) {
 
 
-            addPiece(cordinates.get(i),cordinates.get(i+1));
+            if (cordinates.get(i+1)+1>=20){
+            }
+else {                addPiece(cordinates.get(i),cordinates.get(i+1)+1);
+            }
 
             activeCordinates.add(cordinates.get(i));
             activeCordinates.add(cordinates.get(i+1)+1);
@@ -499,17 +557,7 @@ private void setGridArray(){
         System.out.println(activeCordinates);
 
     }
-    private void removePieces(ArrayList<Integer> cordinates){
 
-        for (int i = 0; i < cordinates.size(); i++) {
-            if (cordinates.get(i+1)==0)
-                removePiece(cordinates.get(i),cordinates.get(i+1));
-            else {
-                removePiece(cordinates.get(i),cordinates.get(i+1)-1);
-            }
-            i++;
-        }
-    }
 
 
 
@@ -523,12 +571,15 @@ private void setGridArray(){
             gamePaused = false;
             pausedText.setVisible(false);
             pauseButton.setVisible(false);
+            resumeButton.setVisible(false);
+
 
         }
         else{
             gamePaused=true;
             pausedText.setVisible(true);
             pauseButton.setVisible(true);
+            resumeButton.setVisible(true);
         }
 
     }
@@ -537,7 +588,7 @@ private void setGridArray(){
 
             case S:
                 changeSpeed = true;
-                gameSpeedMilliseconds = 250;
+                gameSpeedMilliseconds = tetrisModel.getDifficultyInt();
                 System.out.println("RELEASED S");
                 break;
 
@@ -567,6 +618,9 @@ private void setGridArray(){
                 break;
             case W:
                 rotatePiece();
+                break;
+            case V:
+                break;
 
 
             default:
@@ -613,8 +667,10 @@ private void setGridArray(){
             i++;
 
         }
-        removePieces(activeCordinates);
+        removePieces2(activeCordinates);
         placePiece(rotatedActiveCordinates);
+
+        //clearBoardFromInvalidPieces();
 
     }
 
@@ -631,5 +687,21 @@ private void setGridArray(){
 
     }
 
+
+    public void resumeGame(ActionEvent actionEvent) throws InterruptedException {
+        onMousePressed(null);
+    }
+
+    public void removePieces2(ArrayList <Integer> cordinates){
+
+        for (int i = 0; i < cordinates.size(); i++) {
+            if (cordinates.get(i+1)==0)
+                removePiece(cordinates.get(i),cordinates.get(i+1));
+            else {
+                removePiece(cordinates.get(i),cordinates.get(i+1));
+            }
+            i++;
+        }
+    }
 
 }

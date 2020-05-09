@@ -9,7 +9,7 @@
 <VBox fx:controller="sample.TetrisController"
       xmlns:fx="http://javafx.com/fxml" prefHeight="800" prefWidth="800" style="-fx-background-color: darkblue;" alignment="CENTER" spacing="40"  >
 
-    <Label text="TETRIS" style="-fx-font-size:80" ></Label>
+    <Label textFill="black" text="TETRIS" style="-fx-font-size:120" ></Label>
 
     <Button fx:id="startGameButton" onAction="#startGameButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Start Game</Button>
 

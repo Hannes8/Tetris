@@ -19,7 +19,8 @@
     <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
     <left>
         <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <Label  text="Poi"></Label>
+            <Label textFill="black" style="-fx-font-size:10"  fx:id="gameInformation">hej</Label>
+            <Label textFill="black" style="-fx-font-size:50"  fx:id="levelLabel">Level 1</Label>
             <HBox >
                 <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
                 <Rectangle fill="darkblue"  onMouseClicked="#onMousePressed" height="100" width="40" ></Rectangle>
@@ -41,8 +42,12 @@
 
 
             </GridPane>
-            <Label textFill="red" fx:id="pausedText" style="-fx-font-size:50"  visible="false">PAUSED</Label>
-            <Button onAction="#pauseButtonAction" visible="false" fx:id="pauseButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Exit game</Button>
+            <VBox alignment="CENTER" spacing="100">
+                <Label textFill="greenyellow" fx:id="pausedText" style="-fx-font-size:100"  visible="false">PAUSED</Label>
+                <Button onAction="#resumeGame"  visible="false" fx:id="resumeButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Resume</Button>
+                <Button onAction="#pauseButtonAction" visible="false" fx:id="pauseButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Exit game</Button>
+            </VBox>
+
         </StackPane>
 
 
@@ -50,13 +55,13 @@
 
     <right>
         <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <Label style="-fx-font-size:50"  text="Next"></Label>
+            <Label textFill="black" fx:id="nextLabel" style="-fx-font-size:50"  text="Next"></Label>
             <GridPane alignment="CENTER" fx:id="nextPieceGrid">
 
 
             </GridPane>
-            <Label style="-fx-font-size:50"  text="Score"></Label>
-            <Label  style="-fx-font-size:50" fx:id="score" text=""></Label>
+            <Label fx:id="scoreLabel" textFill="black" style="-fx-font-size:50"  text="Score"></Label>
+            <Label textFill="black" fx:id="score" style="-fx-font-size:50"  text=""></Label>
         </VBox>
     </right>
 

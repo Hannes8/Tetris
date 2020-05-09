@@ -6,16 +6,48 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class TetrisModel {
-    private String [] piecesAsStringArray = {"hej","ghfhgf"};
     private ArrayList <ArrayList<Integer>> occupiedCordinates=new ArrayList<>(999);
 
     private int score;
+
+    private static String difficultyString;
+
+    private static String languageString = "english";
+
+    public String getLanguageString(){
+        return languageString;
+    }
+    public void setLanguageString(String languageString){
+        this.languageString = languageString;
+    }
 
     public TetrisModel(){
         for (int i = 0; i < 20 ; i++) {
             occupiedCordinates.add(new ArrayList<>());
         }
 
+
+    }
+    public String getDifficultyString(){
+        return difficultyString;
+    }
+
+    public int getDifficultyInt(){
+        System.out.println(difficultyString);
+        if (difficultyString == "easy"){
+            return 500;
+        }
+        if (difficultyString == "normal"){
+            return 250;
+        }
+        if (difficultyString == "hard"){
+            return 100;
+        }
+
+        return 400;
+    }
+    public void setDifficultyString(String difficultyString){
+        this.difficultyString = difficultyString;
     }
     public void initiateOccupiedCordinates(){
         for (int i = 0; i < 20 ; i++) {

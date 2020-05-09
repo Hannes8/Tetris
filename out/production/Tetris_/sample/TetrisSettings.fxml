@@ -10,9 +10,23 @@
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="sample.TetrisSettingsController"
     prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;" alignment="CENTER" spacing="40">
-    <Label  style="-fx-font-size:50">SETTINGS</Label>
-    <Button onAction="#languageButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Language</Button>
-    <Button onAction="#difficultyButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Difficulty</Button>
+    <Label  textFill="black" style="-fx-font-size:50">SETTINGS</Label>
+    <Label textFill="black"  style="-fx-font-size:30">Language</Label>
+    <HBox alignment="CENTER" spacing="50">
+        <Button fx:id="swedishButton" onAction="#languageButton" prefHeight="50" prefWidth="100" style="-fx-font-size:20">Swedish</Button>
+        <Button fx:id="englishButton" onAction="#languageButton" prefHeight="50" prefWidth="100" style="-fx-font-size:20">English</Button>
+    </HBox >
+    <Label textFill="black"  style="-fx-font-size:30">Difficulty</Label>
+    <HBox alignment="CENTER" spacing="50">
+        <Button fx:id="easyButton" onAction="#difficultyButton" prefHeight="50" prefWidth="100" style="-fx-font-size:20">Easy</Button>
+        <Button fx:id="normalButton" onAction="#difficultyButton" prefHeight="50" prefWidth="100" style="-fx-font-size:20">Normal</Button>
+        <Button fx:id="hardButton" onAction="#difficultyButton" prefHeight="50" prefWidth="100" style="-fx-font-size:20">Hard</Button>
+
+
+    </HBox>
+
+    <Button onAction="#goBackButton" prefHeight="50" prefWidth="300" style="-fx-font-size:30">View Keybinds</Button>
+
     <Button onAction="#goBackButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Go Back</Button>
 
 
