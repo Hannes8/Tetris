@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -39,6 +41,9 @@ public class gameSceneController{
     public Label nextLabel;
     public Label gameInformation;
     public Label levelLabel;
+    public VBox pauseMenu;
+    public Label gameOverText;
+    public VBox gameOverMenu;
 
 
     private ArrayList <Integer> activeCordinates = new ArrayList<>(50);
@@ -110,11 +115,8 @@ public class gameSceneController{
 
         if (tetrisModel.getLanguageString().equals("swedish")){
 
-            scoreLabel.setText("Poäng");
-            nextLabel.setText("Nästa");
-            pausedText.setText("Pausad");
-            resumeButton.setText("Återuppta");
-            pauseButton.setText("Lämna spel");
+            setLanguageSwedish();
+
         }
 
         // gameInformation.setText("Language "+tetrisModel.getLanguageString()+": Difficulty "+tetrisModel.getDifficultyString());
@@ -136,6 +138,9 @@ public class gameSceneController{
 
 
     }
+
+
+
     private void gameLoop(){
 
         while (true){
@@ -156,7 +161,7 @@ public class gameSceneController{
                         Platform.runLater(new Runnable() {
 
                             public void run() {
-                                if (checkIfCordinateIsOccupied() || x == 19) {
+                                if (checkIfCordinateIsOccupied() || activeCordinates.contains(19)) {
                                     x = 0;
 
                                     tetrisModel.addOccupiedCordinates(activeCordinates);
@@ -200,7 +205,11 @@ public class gameSceneController{
 
 
 
-                                if (tetrisModel.getOccupiedCordinates().get(0).contains(5)) {
+                                if (tetrisModel.getOccupiedCordinates().get(0).size()>0) {
+
+                                    gameOverMenu.setVisible(true);
+
+                                    fall.cancel();
 
                                     System.out.println("GAME OVER");
                                 }
@@ -230,7 +239,7 @@ public class gameSceneController{
     }
 
     private void addPieceNextGrid() {
-        for (int i = 0; i <12; i++) {
+        for (int i = 0; i <14; i++) {
             for (int j = 0; j <4 ; j++) {
                 gridArrayNext.get(i).get(j).setFill(Color.DARKBLUE);
                 gridArrayNext.get(i).get(j).setStroke(Color.DARKBLUE);
@@ -240,20 +249,20 @@ public class gameSceneController{
 
         // ger de kordinaterna där som nästa piece har och ger den sin fill och stroke
         for (int i = 0; i < 8; i++) {
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i]-4).get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i+1]+1).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(1)));
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i]-4).get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i+1]+1).setStroke(Color.GRAY);
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i+1]).get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i]-4).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(1)));
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i+1]).get(pieces.getPieceSize(pieces.getRandomPiece().get(1))[i]-4).setStroke(Color.GRAY);
             i++;
 
         }
         for (int i = 0; i < 8; i++) {
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i]).get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i+1]+1).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(2)));
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i]).get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i+1]+1).setStroke(Color.GRAY);
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i+1]+5).get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i]-4).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(2)));
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i+1]+5).get(pieces.getPieceSize(pieces.getRandomPiece().get(2))[i]-4).setStroke(Color.GRAY);
             i++;
 
         }
         for (int i = 0; i < 8; i++) {
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i]+4).get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i+1]+1).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(3)));
-            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i]+4).get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i+1]+1).setStroke(Color.GRAY);
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i+1]+10).get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i]-4).setFill(pieces.getPieceColor(pieces.getRandomPiece().get(3)));
+            gridArrayNext.get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i+1]+10).get(pieces.getPieceSize(pieces.getRandomPiece().get(3))[i]-4).setStroke(Color.GRAY);
             i++;
 
         }
@@ -261,7 +270,13 @@ public class gameSceneController{
 
 
     }
-
+    private void setLanguageSwedish() {
+        scoreLabel.setText("Poäng");
+        nextLabel.setText("Nästa");
+        pausedText.setText("Pausad");
+        resumeButton.setText("Återuppta");
+        pauseButton.setText("Lämna spel");
+    }
     private void checkIfLineIsFull() {
 
         for (int i = 0; i <21 ; i++) {
@@ -392,7 +407,7 @@ private void setGridArray(){
 
         x=0;
         testt = 0;
-        for (int i = 0; i < 4*12; i++) {
+        for (int i = 0; i < 4*14; i++) {
 
             if (i%4==0 && i!=0){
                 x++;
@@ -514,7 +529,7 @@ private void setGridArray(){
         activeCordinates = new ArrayList<>();
         for (int i = 0; i < cordinates.length; i++) {
 
-
+            addPiece(cordinates[i],cordinates[i+1]);
 
             activeCordinates.add(cordinates[i]);
             activeCordinates.add(cordinates[i+1]);
@@ -569,17 +584,13 @@ else {                addPiece(cordinates.get(i),cordinates.get(i+1)+1);
 
         if (gamePaused==true){
             gamePaused = false;
-            pausedText.setVisible(false);
-            pauseButton.setVisible(false);
-            resumeButton.setVisible(false);
+            pauseMenu.setVisible(false);
 
 
         }
         else{
             gamePaused=true;
-            pausedText.setVisible(true);
-            pauseButton.setVisible(true);
-            resumeButton.setVisible(true);
+            pauseMenu.setVisible(true);
         }
 
     }
@@ -704,4 +715,26 @@ else {                addPiece(cordinates.get(i),cordinates.get(i+1)+1);
         }
     }
 
+    public void playAgainButton(ActionEvent actionEvent)throws IOException {
+        stage = (Stage) pauseButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("gameScene.fxml"));
+        Scene scene = new Scene(root);
+
+
+        stage.setScene(scene);
+
+
+
+    }
+
+    public void mainMenuButton(ActionEvent actionEvent) throws IOException{
+        stage = (Stage) pauseButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Scene scene = new Scene(root);
+
+
+        stage.setScene(scene);
+
+
+    }
 }

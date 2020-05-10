@@ -2,17 +2,15 @@ package sample;
 
 import javafx.scene.paint.Color;
 
-public class OPiece implements PiecesInterface {
-
-
+public class SPiece implements PiecesInterface{
     @Override
     public Color getPieceColor() {
-        return Color.YELLOW;
+        return Color.GREEN;
     }
 
     @Override
     public int[] getPieceSize() {
-        int [] pieceSize = {4,0,5,0,4,1,5,1};
+        int [] pieceSize = {4,1,5,1,5,0,6,0};
         return pieceSize;
     }
 }
