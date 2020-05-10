@@ -15,8 +15,6 @@
 
     <Button fx:id="test1" onAction="#settingsButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Settings</Button>
 
-    <Button fx:id="highScoreButton" onAction="#highScoreButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">High Score</Button>
-
     <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
 
 
