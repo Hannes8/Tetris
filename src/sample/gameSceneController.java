@@ -86,7 +86,6 @@ public class gameSceneController {
 
     private Clip music;
 
-    private long musicCurrentTimeInMicroseconds;
 
     @FXML
     public void initialize() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
@@ -112,8 +111,6 @@ public class gameSceneController {
 
         }
 
-        // gameInformation.setText("Language "+tetrisModel.getLanguageString()+": Difficulty "+tetrisModel.getDifficultyString());
-
 
         tetrisModel.initiateOccupiedCordinates();
 
@@ -131,8 +128,6 @@ public class gameSceneController {
 
     /**
      * main loopen som körs när spelet är igång
-     *
-     *
      */
     private void gameLoop() {
 
@@ -152,6 +147,7 @@ public class gameSceneController {
                         Platform.runLater(new Runnable() {
 
                             public void run() {
+                                // om kordinaten är tagen eller det är den sista raden
                                 if (checkIfCordinateIsOccupied() || activeCordinates.contains(19)) {
                                     mainLoopCount = 0;
 
@@ -162,7 +158,7 @@ public class gameSceneController {
                                 if (mainLoopCount == 0) {
 
 
-                                    initialValueActiveCordinates( pieces.getPieceSize(activePieceString));
+                                    initialValueActiveCordinates(pieces.getPieceSize(activePieceString));
                                 }
 
                                 addPieceNextGrid();
@@ -176,14 +172,16 @@ public class gameSceneController {
                                 checkIfLineIsFull();
                                 mainLoopCount++;
 
-
-                                // om kordinaten är tagen eller det är den sista raden
-
-
+                                
                                 // var tionde rad som blir borttagen så ökar leveln, svårhetsgraden
                                 if (clearLineCount % 11 == 0 && clearLineCount != 0) {
                                     level++;
-                                    levelLabel.setText("Level " + level);
+                                    if (tetrisModel.getLanguageString() == "swedish") {
+                                        levelLabel.setText("Nivå " + level);
+                                    } else {
+                                        levelLabel.setText("Level " + level);
+                                    }
+
 
                                     if (gameSpeedMilliseconds > 10)
                                         gameSpeedMilliseconds = gameSpeedMilliseconds - 10;
@@ -192,7 +190,6 @@ public class gameSceneController {
                                     changeSpeed = true;
 
                                 }
-
 
 
                                 // när spelaren förlorar
@@ -206,7 +203,11 @@ public class gameSceneController {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    yourScoreText.setText("YOUR SCORE: " + Integer.toString(tetrisModel.getScore()));
+                                    if (tetrisModel.getLanguageString() == "swedish") {
+                                        yourScoreText.setText("DINA POÄNG: " + Integer.toString(tetrisModel.getScore()));
+                                    } else {
+                                        yourScoreText.setText("YOUR SCORE: " + Integer.toString(tetrisModel.getScore()));
+                                    }
 
                                     highScoreOne.setText("1: " + tetrisModel.getHighscore().get(0));
 
@@ -290,6 +291,8 @@ public class gameSceneController {
         gameOverText.setText("SPELET ÖVER");
         highScoreText.setText("HÖGSTA POÄNG");
         yourScoreText.setText("DINA POÄNG:");
+        levelLabel.setText("Nivå 1");
+
     }
 
     /**
@@ -314,6 +317,7 @@ public class gameSceneController {
 
     /**
      * Tar bort en rad och flyttar alla rektanglar ett steg ner
+     *
      * @param row
      */
     private void removeLine(int row) {
@@ -374,8 +378,6 @@ public class gameSceneController {
             if (tetrisModel.getOccupiedCordinates().get(activeCordinates.get(i + 1) + 1).contains(activeCordinates.get(i))) {
 
 
-
-
                 return true;
             }
 
@@ -398,7 +400,6 @@ public class gameSceneController {
      * Skapar ett 10*20 grid med hjälp av en arraylist med arraylist av rektanglar
      */
     private void gridCreator() {
-
 
 
         int x = 0;
@@ -441,6 +442,7 @@ public class gameSceneController {
 
     /**
      * ger en av rektanglarna i kordinatsystemet en färg
+     *
      * @param x x kordinat
      * @param y y kordinat
      */
@@ -453,6 +455,7 @@ public class gameSceneController {
 
     /**
      * ger en av rektanglarna i kordinatsystemet svart färg
+     *
      * @param x x kordinat
      * @param y y kordinat
      */
@@ -555,9 +558,10 @@ public class gameSceneController {
 
     /**
      * ger den nya klossen sina första aktiva kordinater
+     *
      * @param cordinates
      */
-    private void initialValueActiveCordinates( int[] cordinates) {
+    private void initialValueActiveCordinates(int[] cordinates) {
         activeCordinates = new ArrayList<>();
         for (int i = 0; i < cordinates.length; i++) {
 
@@ -574,6 +578,7 @@ public class gameSceneController {
 
     /**
      * förflyttar en kloss ett steg ner
+     *
      * @param cordinates
      */
     private void placePieceOneDown(ArrayList<Integer> cordinates) {
@@ -597,6 +602,7 @@ public class gameSceneController {
 
     /**
      * gör ett antal kordinater till aktiva
+     *
      * @param cordinates
      */
     private void placePiece(ArrayList<Integer> cordinates) {
@@ -615,12 +621,12 @@ public class gameSceneController {
     }
 
 
-
     public void exitButton(ActionEvent actionEvent) {
     }
 
     /**
      * Tar hand om pause knappen
+     *
      * @param mouseEvent
      * @throws InterruptedException
      */
@@ -644,6 +650,7 @@ public class gameSceneController {
 
     /**
      * när s knappen släpps så blir hastigheten normal igen
+     *
      * @param e
      */
     public void handleKeyReleased(KeyEvent e) {
@@ -665,6 +672,7 @@ public class gameSceneController {
 
     /**
      * all input från tangentbordet hanteras
+     *
      * @param e
      */
     public void handleKeyPressed(KeyEvent e) {
@@ -736,6 +744,10 @@ public class gameSceneController {
             }
             Boolean rotatePossible = true;
 
+            if (pieces.getRandomPiece().get(0) == "opiece") {
+                rotatePossible = false;
+            }
+
 
             for (int j = 0; j < rotatedActiveCordinates.size(); j++) {
                 if (tetrisModel.getOccupiedCordinates().get(rotatedActiveCordinates.get(j + 1)).contains(rotatedActiveCordinates.get(j))) {
@@ -771,6 +783,7 @@ public class gameSceneController {
 
     /**
      * Om exit knappen klickas
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -795,6 +808,7 @@ public class gameSceneController {
 
     /**
      * Ger kordinaterna som ges färgen svart
+     *
      * @param cordinates
      */
     private void removePieces(ArrayList<Integer> cordinates) {
@@ -811,6 +825,7 @@ public class gameSceneController {
 
     /**
      * om play again knappen klickas så börjar spelet om
+     *
      * @param actionEvent
      * @throws IOException
      */
@@ -827,6 +842,7 @@ public class gameSceneController {
 
     /**
      * om main menu knappen klickas så öppnas start menyn
+     *
      * @param actionEvent
      * @throws IOException
      */

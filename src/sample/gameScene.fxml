@@ -12,24 +12,21 @@
         onKeyPressed="#handleKeyPressed"
         onKeyReleased="#handleKeyReleased"
         xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.gameSceneController"
-            prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;"
-            fx:id="borderPane"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="sample.gameSceneController"
+        prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: darkblue;"
+        fx:id="borderPane"
 >
-    <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
+    <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit
+    </Button>
     <left>
-        <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <Label textFill="black" style="-fx-font-size:10"  fx:id="gameInformation">hej</Label>
-            <Label textFill="black" style="-fx-font-size:50"  fx:id="levelLabel">Level 1</Label>
-            <HBox >
-                <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
-                <Rectangle fill="darkblue"  onMouseClicked="#onMousePressed" height="100" width="40" ></Rectangle>
-                <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
+        <VBox spacing="500" prefWidth="200" prefHeight="800">
+            <Label textFill="black" style="-fx-font-size:50" fx:id="levelLabel">Level 1</Label>
+            <HBox alignment="CENTER">
+                <Rectangle onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
+                <Rectangle fill="darkblue" onMouseClicked="#onMousePressed" height="100" width="40"></Rectangle>
+                <Rectangle onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
             </HBox>
-
-
-
 
 
         </VBox>
@@ -44,48 +41,50 @@
 
             </GridPane>
             <VBox fx:id="pauseMenu" visible="false" alignment="CENTER" spacing="100">
-                <Label textFill="greenyellow" fx:id="pausedText" style="-fx-font-size:100"  >PAUSED</Label>
-                <Button onAction="#resumeGame"   fx:id="resumeButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Resume</Button>
-                <Button onAction="#pauseButtonAction"  fx:id="pauseButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40" >Exit game</Button>
+                <Label textFill="greenyellow" fx:id="pausedText" style="-fx-font-size:100">PAUSED</Label>
+                <Button onAction="#resumeGame" fx:id="resumeButton" prefHeight="50" prefWidth="300"
+                        style="-fx-font-size:40">Resume
+                </Button>
+                <Button onAction="#pauseButtonAction" fx:id="pauseButton" prefHeight="50" prefWidth="300"
+                        style="-fx-font-size:40">Exit game
+                </Button>
             </VBox>
 
-            <VBox fx:id="gameOverMenu" style="-fx-background-color: greenyellow;"  alignment="CENTER" maxHeight="440" maxWidth="600" visible="false">
+            <VBox fx:id="gameOverMenu" style="-fx-background-color: greenyellow;" alignment="CENTER" maxHeight="440"
+                  maxWidth="600" visible="false">
 
-                    <StackPane>
-                        <Rectangle width="440" height="600" strokeWidth="5" stroke="greenyellow">
-
-
-                        </Rectangle>
-                        <VBox alignment="TOP_CENTER" maxHeight="440" maxWidth="600" >
-                            <Label  textFill="greenyellow" fx:id="gameOverText" style="-fx-font-size:70"  >GAME OVER</Label>
-                            <Label  textFill="greenyellow" fx:id="yourScoreText" style="-fx-font-size:30"  >YOUR SCORE :</Label>
-                            <Label  textFill="greenyellow"  style="-fx-font-size:30"  ></Label>
-                            <Label  textFill="greenyellow" fx:id="highScoreText" style="-fx-font-size:30"  >HIGH SCORE</Label>
-                            <Label  textFill="greenyellow" fx:id="highScoreOne" style="-fx-font-size:30"  >1, 1336 </Label>
-                            <Label  textFill="greenyellow" fx:id="highScoreTwo" style="-fx-font-size:30"  >2, 80000</Label>
-                            <Label  textFill="greenyellow" fx:id="highScoreThree" style="-fx-font-size:30"  >3, 9000</Label>
-                            <Label  textFill="greenyellow" fx:id="" style="-fx-font-size:30"  ></Label>
-
-                            <HBox alignment="CENTER" spacing="50">
-                                <Button onAction="#playAgainButton" prefHeight="50" prefWidth="180" style="-fx-font-size:20" >
-                                    PLAY AGAIN
-                                </Button>
-                                <Button onAction="#mainMenuButton" prefHeight="50" prefWidth="180" style="-fx-font-size:20" >
-                                    MAIN MENU
-                                </Button>
-                            </HBox>
-
-                        </VBox>
+                <StackPane>
+                    <Rectangle width="440" height="600" strokeWidth="5" stroke="greenyellow">
 
 
+                    </Rectangle>
+                    <VBox alignment="TOP_CENTER" maxHeight="440" maxWidth="600">
+                        <Label textFill="greenyellow" fx:id="gameOverText" style="-fx-font-size:70">GAME OVER</Label>
+                        <Label textFill="greenyellow" fx:id="yourScoreText" style="-fx-font-size:30">YOUR SCORE :
+                        </Label>
+                        <Label textFill="greenyellow" style="-fx-font-size:30"></Label>
+                        <Label textFill="greenyellow" fx:id="highScoreText" style="-fx-font-size:30">HIGH SCORE</Label>
+                        <Label textFill="greenyellow" fx:id="highScoreOne" style="-fx-font-size:30">1, 1336</Label>
+                        <Label textFill="greenyellow" fx:id="highScoreTwo" style="-fx-font-size:30">2, 80000</Label>
+                        <Label textFill="greenyellow" fx:id="highScoreThree" style="-fx-font-size:30">3, 9000</Label>
+                        <Label textFill="greenyellow" fx:id="" style="-fx-font-size:30"></Label>
+
+                        <HBox alignment="CENTER" spacing="50">
+                            <Button onAction="#playAgainButton" prefHeight="50" prefWidth="180"
+                                    style="-fx-font-size:20">
+                                PLAY AGAIN
+                            </Button>
+                            <Button onAction="#mainMenuButton" prefHeight="50" prefWidth="180" style="-fx-font-size:20">
+                                MAIN MENU
+                            </Button>
+                        </HBox>
+
+                    </VBox>
 
 
-                    </StackPane>
+                </StackPane>
 
             </VBox>
-
-
-
 
 
         </StackPane>
@@ -95,13 +94,13 @@
 
     <right>
         <VBox prefWidth="200" prefHeight="800">
-            <Label textFill="black" fx:id="nextLabel" style="-fx-font-size:50"  text="Next"></Label>
+            <Label textFill="black" fx:id="nextLabel" style="-fx-font-size:50" text="Next"></Label>
             <GridPane alignment="CENTER" fx:id="nextPieceGrid">
 
 
             </GridPane>
-            <Label fx:id="scoreLabel" textFill="black" style="-fx-font-size:50"  text="Score"></Label>
-            <Label textFill="black" fx:id="score" style="-fx-font-size:50"  text=""></Label>
+            <Label fx:id="scoreLabel" textFill="black" style="-fx-font-size:50" text="Score"></Label>
+            <Label textFill="black" fx:id="score" style="-fx-font-size:50" text=""></Label>
         </VBox>
     </right>
 

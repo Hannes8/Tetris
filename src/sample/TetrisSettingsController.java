@@ -28,13 +28,13 @@ public class TetrisSettingsController {
 
     public void languageButton(ActionEvent actionEvent) {
 
-        if (actionEvent.getSource().equals(englishButton)){
+        if (actionEvent.getSource().equals(englishButton)) {
             englishButton.setStyle("-fx-background-color: grey;-fx-font-size:20 ");
             swedishButton.setStyle("-fx-font-size:20 ");
             tetrisModel.setLanguageString("english");
 
         }
-        if (actionEvent.getSource().equals(swedishButton)){
+        if (actionEvent.getSource().equals(swedishButton)) {
             swedishButton.setStyle("-fx-background-color: grey;-fx-font-size:20 ");
             englishButton.setStyle("-fx-font-size:20 ");
             tetrisModel.setLanguageString("swedish");
@@ -43,21 +43,21 @@ public class TetrisSettingsController {
     }
 
     public void difficultyButton(ActionEvent actionEvent) {
-        if (actionEvent.getSource().equals(easyButton)){
+        if (actionEvent.getSource().equals(easyButton)) {
             tetrisModel.setDifficultyString("easy");
             easyButton.setStyle("-fx-background-color: grey;-fx-font-size:20 ");
             hardButton.setStyle("-fx-font-size:20 ");
             normalButton.setStyle("-fx-font-size:20 ");
 
         }
-        if (actionEvent.getSource().equals(normalButton)){
+        if (actionEvent.getSource().equals(normalButton)) {
             tetrisModel.setDifficultyString("normal");
             normalButton.setStyle("-fx-background-color: grey;-fx-font-size:20 ");
             easyButton.setStyle("-fx-font-size:20 ");
             hardButton.setStyle("-fx-font-size:20 ");
 
         }
-        if (actionEvent.getSource().equals(hardButton)){
+        if (actionEvent.getSource().equals(hardButton)) {
             tetrisModel.setDifficultyString("hard");
             hardButton.setStyle("-fx-background-color: grey; -fx-font-size:20 ");
             easyButton.setStyle("-fx-font-size:20 ");

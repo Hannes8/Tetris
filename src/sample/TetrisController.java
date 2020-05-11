@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 import java.io.IOException;
 
 public class TetrisController {
@@ -19,10 +20,13 @@ public class TetrisController {
 
     @FXML
     Button startGameButton;
+
     @FXML
-    public void initialize(){
+    public void initialize() {
+
 
     }
+
     public void startGameButton(ActionEvent actionEvent) throws IOException {
 
 
@@ -44,7 +48,6 @@ public class TetrisController {
         System.out.println("EXIT");
         stage.close();
     }
-
 
 
     public void hehe(ActionEvent actionEvent) {

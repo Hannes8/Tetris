@@ -43,6 +43,7 @@ public class pieceFactory {
         return null;
 
     }
+
     public int [] getPieceSize(String piece){
         switch (piece){
             case "tpiece":
@@ -72,11 +73,13 @@ public class pieceFactory {
 
 
     }
+
     public void randomizeNewPiece(){
         int random =(int)(pieceNameArray.length * Math.random());
         randomPieceArray.remove(0);
         randomPieceArray.add(pieceNameArray[random]);
     }
+
     public void setRandomPieceArray(){
         for (int i = 0; i < 4; i++) {
             int random =(int)(pieceNameArray.length * Math.random());

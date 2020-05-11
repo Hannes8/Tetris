@@ -19,10 +19,9 @@
 >
     <Button fx:id="exitButton" onAction="#exitButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Exit</Button>
     <left>
-        <VBox spacing="50" prefWidth="200" prefHeight="800">
-            <Label textFill="black" style="-fx-font-size:10"  fx:id="gameInformation">hej</Label>
+        <VBox spacing="500" prefWidth="200" prefHeight="800">
             <Label textFill="black" style="-fx-font-size:50"  fx:id="levelLabel">Level 1</Label>
-            <HBox >
+            <HBox alignment="CENTER">
                 <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>
                 <Rectangle fill="darkblue"  onMouseClicked="#onMousePressed" height="100" width="40" ></Rectangle>
                 <Rectangle  onMouseClicked="#onMousePressed" height="100" width="30"></Rectangle>

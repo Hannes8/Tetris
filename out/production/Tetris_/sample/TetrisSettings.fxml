@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -25,7 +23,14 @@
 
     </HBox>
 
-    <Button onAction="#goBackButton" prefHeight="50" prefWidth="300" style="-fx-font-size:30">View Keybinds</Button>
+    <Label textFill="black"  style="-fx-font-size:30">Keybinds</Label>
+    <HBox spacing="40" alignment="CENTER">
+        <Label textFill="black"  style="-fx-font-size:20">Move right: D</Label>
+        <Label textFill="black"  style="-fx-font-size:20">Move left: A</Label>
+        <Label textFill="black"  style="-fx-font-size:20">Rotate: W</Label>
+        <Label textFill="black"  style="-fx-font-size:20">Go down: S</Label>
+    </HBox>
+
 
     <Button onAction="#goBackButton" prefHeight="50" prefWidth="300" style="-fx-font-size:40">Go Back</Button>
 
